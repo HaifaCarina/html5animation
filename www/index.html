@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title></title>
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+	<meta charset="utf-8">
+
+    <script src="kinetic-v3.10.2.js"></script>
+
+	<script type="text/javascript" charset="utf-8" src="cordova-1.7.0.js"></script>
+    <script type="text/javascript">
+	
+	function onBodyLoad()
+	{		
+		document.addEventListener("deviceready", onDeviceReady, false);
+	}
+	
+
+	function onDeviceReady()
+	{
+        var stage = new Kinetic.Stage({
+                                      container: "container",
+                                      width: 320,
+                                      height: 480
+                                      });
+        var layer = new Kinetic.Layer();
+        
+        
+        var image_pinwheel = new Image();
+        var image_mathmaniac = new Image();
+        var image_sigma = new Image();
+        var image_pi = new Image();
+        var image_x = new Image();
+        var image_root = new Image();
+        var image_subtract = new Image();
+        var image_modulo = new Image();
+        var image_multiply = new Image();
+        
+        image_pinwheel.onload = function() {
+            
+            var rect = new Kinetic.Rect({
+                                        x: 0,
+                                        y: 0,
+                                        width: 320,
+                                        height: 480,
+                                        fill: "#276eff"
+                                        });
+            
+            var pinwheel = new Kinetic.Image({
+                                             x: 160,
+                                             y: 120,
+                                             image: image_pinwheel,
+                                             width: 500,
+                                             height: 500,
+                                             offset: [250, 250]
+                                             });
+            
+            var mathmaniac = new Kinetic.Image({
+                                               x: 10,
+                                               y: 20,
+                                               image: image_mathmaniac,
+                                               width: 300,
+                                               height: 200,
+                                               // offset: [160, 160]
+                                               });  
+            var sigma = new Kinetic.Image({
+                                          x: 25,
+                                          y: 20,
+                                          image: image_sigma,
+                                          width: 30,
+                                          height: 30
+                                          });
+            var pi = new Kinetic.Image({
+                                          x: 25,
+                                          y: 20,
+                                          image: image_pi,
+                                          width: 40,
+                                          height: 40
+                                          });
+            var x = new Kinetic.Image({
+                                       x: 25,
+                                       y: 20,
+                                       image: image_x,
+                                       width: 30,
+                                       height: 30
+                                       });
+            
+            var root = new Kinetic.Image({
+                                      x: 25,
+                                      y: 20,
+                                      image: image_root,
+                                      width: 60,
+                                      height: 40
+                                      });
+            
+            var subtract = new Kinetic.Image({
+                                      x: 25,
+                                      y: 20,
+                                      image: image_subtract,
+                                      width: 30,
+                                      height: 30
+                                      });
+            
+            var modulo = new Kinetic.Image({
+                                      x: 25,
+                                      y: 20,
+                                      image: image_modulo,
+                                      width: 30,
+                                      height: 30
+                                      });
+            
+            var multiply = new Kinetic.Image({
+                                      x: 25,
+                                      y: 20,
+                                      image: image_multiply,
+                                      width: 30,
+                                      height: 30
+                                      });
+            
+            layer.add(rect);  
+            layer.add(pinwheel);
+            layer.add(mathmaniac); 
+            layer.add(sigma);
+            layer.add(pi);
+            layer.add(x);
+            layer.add(root);
+            layer.add(subtract);
+            layer.add(modulo);
+            layer.add(multiply);
+            
+            stage.add(layer);
+            
+            // one revolution per 4 seconds
+            var angularSpeed = Math.PI / 2;
+            
+            var amplitude = 10; 
+            var period = 5000; 
+
+            
+            stage.onFrame(function(frame) {
+                          var angleDiff = frame.timeDiff * angularSpeed / 6000;
+                          pinwheel.rotate(angleDiff);
+                          
+                          sigma.setX(amplitude * Math.sin(frame.time * 2 * Math.PI / period + 1 ) + 130);
+                          sigma.setY(amplitude * Math.cos(frame.time * 2 * Math.PI / period + 1 ) + 20);
+                          
+                          
+                          pi.setX(amplitude * Math.sin(frame.time * 2 * Math.PI / period) + 235);
+                          pi.setY(amplitude * Math.cos(frame.time * 2 * Math.PI / period) + 40);
+                          
+                          x.setX(amplitude * Math.sin(frame.time * 2 * Math.PI / period - 2 ) + 285);
+                          x.setY(amplitude * Math.cos(frame.time * 2 * Math.PI / period - 2 ) + 90);
+                          
+                          root.setX(amplitude * Math.sin(frame.time * 2 * Math.PI / period + 2) + 200);
+                          root.setY(amplitude * Math.cos(frame.time * 2 * Math.PI / period + 2) + 200);
+                          
+                          subtract.setX(amplitude * Math.sin(frame.time * 2 * Math.PI / period) + 60);
+                          subtract.setY(amplitude * Math.cos(frame.time * 2 * Math.PI / period) + 210);
+                          
+                          modulo.setX(amplitude * Math.sin(frame.time * 2 * Math.PI / period - 1) + 5);
+                          modulo.setY(amplitude * Math.cos(frame.time * 2 * Math.PI / period - 1) + 115);
+                          
+                          multiply.setX(amplitude * Math.sin(frame.time * 2 * Math.PI / period ) + 25);
+                          multiply.setY(amplitude * Math.cos(frame.time * 2 * Math.PI / period) + 20);
+                          
+                          layer.draw();
+                          });
+            
+            stage.start();
+        };
+        image_pinwheel.src = "images/pinwheel.png";
+        image_mathmaniac.src = "images/mathmaniac.png";
+        image_sigma.src = "images/sigma.png";
+        image_pi.src = "images/pi.png";
+        image_x.src = "images/x.png";
+        image_root.src = "images/root.png";
+        image_subtract.src = "images/subtract.png";
+        image_modulo.src = "images/modulo.png";
+        image_multiply.src = "images/multiply.png";
+
+		
+        
+	}
+    
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+      <div id="container" style="margin-left: -8px; margin-top: -8px; "></div>
+  </body>
+</html>
